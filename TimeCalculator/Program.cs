@@ -8,7 +8,8 @@ namespace TimeCalculator
         {
             //Variables
             double payRate = 0, costs = 0, costInHours = 0;
-            string payRateStr = "";
+            string payRateStr = "", newPayRateStr = "";
+            bool getNewPayRate = false;
 
             Console.WriteLine("Welcome to the time calculator.");
             Console.WriteLine("Find out what that dress or those rollies cost in the time you work!");
@@ -16,22 +17,39 @@ namespace TimeCalculator
             Console.WriteLine("First of all, we need to know how much you earn per hour.");
             payRateStr = GetPayRate();
 
-            while(payRateStr != "exit")
+            if(payRateStr != "exit" || newPayRateStr != "exit")
             {
                 payRate = double.Parse(payRateStr);
                 Console.WriteLine();
-                Console.WriteLine("Next, enter how much the item(s) cost.");
-                costs = GetCost();
+                getNewPayRate = false;
+                while (getNewPayRate == false)
+                {
 
-                costInHours = costs / payRate;
+                    Console.WriteLine("Enter how much the item(s) cost.");
+                    costs = GetCost();
 
-                Console.WriteLine("That is worth {0:0.0}hrs", costInHours);
+                    costInHours = costs / payRate;
 
-                Console.WriteLine("\n\n\n");
+                    Console.WriteLine("That is worth {0:0.0}hrs", costInHours);
+                    Console.WriteLine("\n\n");
+
+                    Console.Write("Would you like to enter a new hourly rate? (Y/N):  ");
+                    newPayRateStr = Console.ReadLine();
+                    newPayRateStr = newPayRateStr.ToLower();
+                    if(newPayRateStr == "y" || newPayRateStr == "yes")
+                    {
+                        getNewPayRate = true;
+                    }
+                }
+
                 payRateStr = GetPayRate();
 
             }
 
+
+
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine("Thank you for using this program");
 
         }
